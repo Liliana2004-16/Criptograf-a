@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Registro de Usuario – LácteosPlur{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="card border-0 rounded-4 shadow overflow-hidden">
+
+                <!-- Cabecera -->
+                <div class="card-header-green p-4 page-hero">
+                    <h4 class="mb-1 fw-bold" style="font-family:'Playfair Display',serif">
+                        <i class="bi bi-person-plus me-2"></i>Registro de Usuario
+                    </h4>
+                    <p class="mb-0 text-white-50" style="font-size:.87rem">Complete todos los campos para crear su cuenta</p>
+                </div>
+
+                <div class="card-body p-4 p-lg-5">
+                    <form method="POST" action="{{ url_for('auth.register') }}" novalidate>
+
+                        <div class="row g-3">
+                            <!-- Nombre -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                                    <i class="bi bi-person me-1"></i>Nombre Completo
+                                </label>
+                                <input type="text" name="nombre" class="form-control rounded-3"
+                                       placeholder="Nombre completo"
+                                       pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                                       title="Solo se permite texto" required>
+                            </div>
+
+                            <!-- Cédula -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                                    <i class="bi bi-credit-card me-1"></i>Cédula
+                                </label>
+                                <input type="text" name="cedula" class="form-control rounded-3"
+                                       placeholder="Solo números"
+                                       pattern="[0-9]+" inputmode="numeric"
+                                       title="Solo se permiten números" required>
+                            </div>
+
+                            <!-- Correo -->
+                            <div class="col-12">
+                                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                                    <i class="bi bi-envelope me-1"></i>Correo Electrónico
+                                </label>
+                                <input type="email" name="correo" class="form-control rounded-3"
+                                       placeholder="correo@ejemplo.com" required>
+                            </div>
+
+                            <!-- Usuario -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                                    <i class="bi bi-at me-1"></i>Usuario
+                                </label>
+                                <input type="text" name="usuario" class="form-control rounded-3"
+                                       placeholder="Nombre de usuario"
+                                       pattern="[A-Za-z0-9]+"
+                                       title="Solo letras y números" required>
+                            </div>
+
+                            <!-- Rol -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                                    <i class="bi bi-shield me-1"></i>Rol
+                                </label>
+                                <select name="rol" class="form-select rounded-3" required>
+                                    <option value="" disabled selected>Seleccionar rol…</option>
+                                    <option value="Administrador">Administrador</option>
+                                    <option value="Auxiliar">Auxiliar</option>
+                                </select>
+                            </div>
+
+                            <!-- Contraseña -->
+                            <div class="col-12">
+                                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                                    <i class="bi bi-lock me-1"></i>Contraseña
+                                </label>
+                                <input type="password" name="password" class="form-control rounded-3"
+                                       placeholder="Mínimo 6 caracteres" minlength="6" required>
+                                <div class="form-text">
+                                    <i class="bi bi-shield-lock me-1"></i>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-3 fw-bold">
+                                <i class="bi bi-person-check me-2"></i>Registrarme
+                            </button>
+                        </div>
+                    </form>
+
+                    {% if not session.user_id %}
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('auth.login') }}" class="text-decoration-none fw-medium" style="color:var(--lp-green-mid);font-size:.88rem">
+                            <i class="bi bi-arrow-left-circle me-1"></i>Volver al Inicio de Sesión
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

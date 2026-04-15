@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Recuperar Contraseña – LácteosPlur{% endblock %}
+
+{% block content %}
+<div class="min-vh-100 d-flex align-items-center justify-content-center py-5" style="background:linear-gradient(160deg,#f0f7f2,var(--lp-cream))">
+    <div class="col-11 col-sm-8 col-md-6 col-lg-4">
+        <div class="card border-0 rounded-4 shadow overflow-hidden">
+
+            <div class="card-header-gold p-4 text-white">
+                <h4 class="mb-1 fw-bold" style="font-family:'Playfair Display',serif">
+                    <i class="bi bi-key me-2"></i>Recuperar Contraseña
+                </h4>
+                <p class="mb-0 text-white-50" style="font-size:.87rem">Ingrese su correo y establezca una nueva contraseña</p>
+            </div>
+
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('auth.recover') }}">
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                            <i class="bi bi-envelope me-1"></i>Correo Electrónico registrado
+                        </label>
+                        <input type="email" name="correo" class="form-control rounded-3"
+                               placeholder="correo@ejemplo.com" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                            <i class="bi bi-lock me-1"></i>Nueva Contraseña
+                        </label>
+                        <input type="password" name="nueva_password" class="form-control rounded-3"
+                               placeholder="Nueva contraseña" minlength="6" required>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-gold btn-lg rounded-3 fw-bold">
+                            <i class="bi bi-arrow-repeat me-2"></i>Actualizar Contraseña
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('auth.login') }}" class="text-decoration-none fw-medium" style="color:var(--lp-green-mid);font-size:.88rem">
+                        <i class="bi bi-arrow-left-circle me-1"></i>Volver al Inicio de Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión – LácteosPlur</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="p-0 m-0">
+
+<div class="login-page">
+
+    <!-- PANEL IZQUIERDO decorativo -->
+    <div class="login-left d-none d-lg-flex flex-column justify-content-center align-items-center p-5 flex-fill text-white">
+        <!-- Logo: reemplaza el emoji con <img src="/static/images/logo.png"> -->
+        <div class="rounded-circle d-flex align-items-center justify-content-center mb-4 shadow-lg"
+             style="width:110px;height:110px;background:linear-gradient(135deg,var(--lp-gold),var(--lp-gold-light));font-size:3.2rem">
+            <img src="/static/images/logo.png" 
+                style="width: 130%; height: 130%; object-fit: cover; border-radius: 50%;">
+        </div>
+
+        <h1 class="display-5 fw-black text-center mb-1" style="font-family:'Playfair Display',serif">
+            Lácteos<span style="color:var(--lp-gold-light)">Plur</span>
+        </h1>
+        <p class="text-uppercase text-center mb-4" style="letter-spacing:4px;font-size:.75rem;opacity:.55">Sistema de Gestión</p>
+
+        <hr class="w-25 mx-auto mb-4" style="border-color:var(--lp-gold);border-width:2px;opacity:1">
+
+        <p class="text-center text-white-50 px-4" style="max-width:320px;line-height:1.7;font-size:.95rem">
+            Bienvenido al sistema de gestión de ventas y usuarios de LácteosPlur. Naturaleza en cada gota.
+        </p>
+
+        <!-- Chips de productos - reemplaza emojis con <img src="/static/images/kefir.jpg"> etc. -->
+        <div class="d-flex gap-3 mt-4">
+            <div class="rounded-3 d-flex align-items-center justify-content-center fs-2"
+                 style="width:68px;height:68px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,58,.3)" title="Kefir Plur">🥛</div>
+            <div class="rounded-3 d-flex align-items-center justify-content-center fs-2"
+                 style="width:68px;height:68px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,58,.3)" title="Yogurt">🍶</div>
+            <div class="rounded-3 d-flex align-items-center justify-content-center fs-2"
+                 style="width:68px;height:68px;background:rgba(255,255,255,.07);border:1px solid rgba(200,151,58,.3)" title="Avena">🌾</div>
+        </div>
+    </div>
+
+    <!-- PANEL DERECHO – Formulario -->
+    <div class="login-right bg-white d-flex flex-column justify-content-center p-5" style="width:100%;max-width:460px;min-height:100vh">
+
+        <h3 class="mb-1" style="font-family:'Playfair Display',serif;color:var(--lp-green-dark)">Iniciar Sesión</h3>
+        <p class="text-muted mb-4" style="font-size:.88rem">Ingrese sus credenciales para acceder al sistema</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for cat, msg in messages %}
+            <div class="alert alert-danger border-0 rounded-3 d-flex align-items-center gap-2 py-2 mb-3">
+                <i class="bi bi-exclamation-triangle-fill"></i> {{ msg }}
+            </div>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('auth.login') }}" novalidate>
+            <!-- Usuario -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                    <i class="bi bi-person me-1"></i>Usuario
+                </label>
+                <input type="text" name="usuario" class="form-control form-control-lg rounded-3"
+                       placeholder="Ingrese su usuario" pattern="[A-Za-z ]+"
+                       title="Solo se permite texto" required autocomplete="username">
+            </div>
+
+            <!-- Contraseña -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                    <i class="bi bi-lock me-1"></i>Contraseña
+                </label>
+                <input type="password" name="password" class="form-control form-control-lg rounded-3"
+                       placeholder="Ingrese su contraseña" required autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 btn-lg rounded-3 fw-bold">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Ingresar
+            </button>
+        </form>
+
+        <div class="d-flex justify-content-between mt-4" style="font-size:.88rem">
+            <a href="{{ url_for('auth.register') }}" class="text-decoration-none fw-medium" style="color:var(--lp-green-mid)">
+                <i class="bi bi-person-plus me-1"></i>Registrarte aquí
+            </a>
+            <a href="{{ url_for('auth.recover') }}" class="text-decoration-none fw-medium" style="color:var(--lp-green-mid)">
+                <i class="bi bi-key me-1"></i>Recuperar Contraseña
+            </a>
+        </div>
+
+        <p class="text-center text-muted mt-5 mb-0" style="font-size:.75rem">
+            © 2025 LácteosPlur · Todos los derechos reservados
+        </p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

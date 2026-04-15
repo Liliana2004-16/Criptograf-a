@@ -1,0 +1,247 @@
+/* =====================================================
+   LácteosPlur – Estilos de Marca
+   Bootstrap 5 maneja el layout; aquí solo personalizamos
+   ===================================================== */
+
+/* ── Variables de marca ── */
+:root {
+    --lp-cream:        #FFF8F0;
+    --lp-gold:         #C8973A;
+    --lp-gold-light:   #E8B85A;
+    --lp-green-dark:   #1A3A2A;
+    --lp-green-mid:    #2D5A3D;
+    --lp-green-light:  #4A8C5C;
+    --lp-sage:         #8FB89A;
+    --lp-border:       #E5DDD0;
+
+    /* Sobreescribir variables Bootstrap */
+    --bs-primary:      #2D5A3D;
+    --bs-primary-rgb:  45, 90, 61;
+    --bs-body-bg:      #FFF8F0;
+    --bs-border-color: #E5DDD0;
+    --bs-border-radius: 0.75rem;
+    --bs-border-radius-lg: 1rem;
+}
+
+/* ── Tipografía ── */
+body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--lp-cream);
+}
+
+h1, h2, h3, h4, h5, h6,
+.display-font {
+    font-family: 'Playfair Display', serif;
+}
+
+/* ── Navbar ── */
+.navbar-lp {
+    background-color: var(--lp-green-dark) !important;
+    border-bottom: 3px solid var(--lp-gold);
+}
+
+.navbar-lp .nav-link {
+    color: rgba(255,255,255,.75) !important;
+    border-radius: 0.5rem;
+    transition: background .2s, color .2s;
+}
+
+.navbar-lp .nav-link:hover,
+.navbar-lp .nav-link.active {
+    background: rgba(200,151,58,.18);
+    color: var(--lp-gold-light) !important;
+}
+
+.navbar-lp .nav-link.nav-logout {
+    color: #ffb3bc !important;
+}
+.navbar-lp .nav-link.nav-logout:hover {
+    background: rgba(220,53,69,.2);
+    color: #ff4d6b !important;
+}
+
+/* ── Botón primario (verde) ── */
+.btn-primary {
+    background: linear-gradient(135deg, var(--lp-green-mid), var(--lp-green-dark));
+    border-color: transparent;
+    font-weight: 600;
+    letter-spacing: .3px;
+    box-shadow: 0 3px 10px rgba(26,58,42,.22);
+    transition: transform .2s, box-shadow .2s;
+}
+.btn-primary:hover, .btn-primary:focus {
+    background: linear-gradient(135deg, var(--lp-green-light), var(--lp-green-mid));
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(26,58,42,.32);
+}
+
+/* ── Botón dorado ── */
+.btn-gold {
+    background: linear-gradient(135deg, var(--lp-gold), var(--lp-gold-light));
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 3px 10px rgba(200,151,58,.28);
+    transition: transform .2s, box-shadow .2s;
+}
+.btn-gold:hover, .btn-gold:focus {
+    background: linear-gradient(135deg, var(--lp-gold-light), var(--lp-gold));
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(200,151,58,.42);
+}
+
+/* ── Inputs ── */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--lp-green-light);
+    box-shadow: 0 0 0 .2rem rgba(74,140,92,.15);
+}
+
+/* ── Cards ── */
+.card {
+    border-color: var(--lp-border);
+    box-shadow: 0 4px 20px rgba(26,58,42,.08);
+}
+
+.card-header-green {
+    background: linear-gradient(135deg, var(--lp-green-dark), var(--lp-green-mid));
+    color: #fff;
+    border-bottom: none;
+}
+
+.card-header-gold {
+    background: linear-gradient(135deg, var(--lp-gold), var(--lp-gold-light));
+    color: #fff;
+    border-bottom: none;
+}
+
+/* ── Tabla ── */
+.table thead th {
+    background-color: var(--lp-green-dark);
+    color: #fff;
+    font-size: .8rem;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    border: none;
+}
+.table tbody tr:hover td {
+    background-color: rgba(74,140,92,.04);
+}
+
+/* ── Badges de rol/estado ── */
+.badge-admin   { background: linear-gradient(135deg, var(--lp-gold), var(--lp-gold-light)); }
+.badge-aux     { background: linear-gradient(135deg, var(--lp-green-light), var(--lp-sage)); }
+.badge-activo  { background: linear-gradient(135deg, #28a745, #20c45a); }
+.badge-inactivo{ background: linear-gradient(135deg, #6c757d, #868e96); }
+
+/* ── Página de Login (dos columnas) ── */
+.login-page {
+    min-height: 100vh;
+    display: flex;
+}
+
+.login-left {
+    background: linear-gradient(160deg, var(--lp-green-dark) 0%, #0D2218 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-left::before {
+    content: '';
+    position: absolute;
+    top: -20%; left: -20%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,151,58,.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.login-right {
+    border-top: 4px solid var(--lp-gold);
+}
+
+/* ── Encabezado de página interior ── */
+.page-hero {
+    background: linear-gradient(135deg, var(--lp-green-dark), var(--lp-green-mid));
+    color: #fff;
+    border-radius: 1rem 1rem 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-hero::after {
+    content: '';
+    position: absolute;
+    top: -40%; right: -5%;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(200,151,58,.18) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.page-hero-gold {
+    background: linear-gradient(135deg, var(--lp-gold), #a07020);
+}
+
+/* ── Welcome banner ── */
+.welcome-banner {
+    background: linear-gradient(135deg, var(--lp-green-dark) 0%, var(--lp-green-mid) 60%, #3A6B4A 100%);
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+}
+
+.welcome-banner::after {
+    content: '🥛';
+    position: absolute;
+    right: 2rem; top: 50%;
+    transform: translateY(-50%);
+    font-size: 6rem;
+    opacity: .1;
+    pointer-events: none;
+}
+
+/* ── Menú cards ── */
+.menu-card {
+    transition: transform .25s, box-shadow .25s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    border-top: 4px solid transparent;
+}
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,.12) !important;
+    text-decoration: none;
+    color: inherit;
+}
+.menu-card.mc-green { border-top-color: var(--lp-green-mid); }
+.menu-card.mc-gold  { border-top-color: var(--lp-gold); }
+.menu-card.mc-red   { border-top-color: #dc3545; }
+
+.menu-icon {
+    width: 56px; height: 56px;
+    border-radius: .875rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+}
+
+/* ── Consecutivo display ── */
+.cons-display {
+    background: #f5efe6;
+    border: 1.5px solid rgba(200,151,58,.3);
+    border-radius: .75rem;
+    padding: .6rem 1rem;
+    font-weight: 700;
+    color: var(--lp-gold);
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--lp-cream); }
+::-webkit-scrollbar-thumb { background: var(--lp-sage); border-radius: 3px; }
+

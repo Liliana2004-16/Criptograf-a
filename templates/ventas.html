@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Ventas – LácteosPlur{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+    <div class="card border-0 rounded-4 shadow overflow-hidden">
+
+        <!-- Cabecera dorada -->
+        <div class="page-hero page-hero-gold p-4 text-white">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <h4 class="fw-bold mb-1" style="font-family:'Playfair Display',serif">
+                        <i class="bi bi-receipt-cutoff me-2"></i>Registro de Ventas
+                    </h4>
+                    <p class="mb-0 text-white-50" style="font-size:.87rem">Consulte y gestione todas las ventas realizadas</p>
+                </div>
+                <a href="{{ url_for('ventas.registrar_venta') }}" class="btn btn-light btn-sm rounded-3 fw-semibold" style="color:var(--lp-gold)">
+                    <i class="bi bi-plus-circle-fill me-1"></i>Registrar Venta
+                </a>
+            </div>
+        </div>
+
+        <!-- Tabla -->
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Consecutivo</th>
+                            <th>Cliente</th>
+                            <th>NIT/CC</th>
+                            <th>Producto</th>
+                            <th>Valor</th>
+                            <th>Registrado por</th>
+                            <th class="pe-4">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if ventas %}
+                        {% for v in ventas %}
+                        <tr>
+                            <td class="ps-4">
+                                <span class="badge rounded-pill fw-bold px-3 py-2" style="background:linear-gradient(135deg,var(--lp-gold),var(--lp-gold-light))">
+                                    #{{ '%04d' % v.consecutivo }}
+                                </span>
+                            </td>
+                            <td class="fw-semibold">{{ v.cliente }}</td>
+                            <td><code class="bg-light rounded px-2 py-1" style="font-size:.85rem">{{ v.nit_cc }}</code></td>
+                            <td style="font-size:.9rem">{{ v.producto }}</td>
+                            <td class="fw-bold" style="color:var(--lp-green-mid)">
+                                ${{ '{:,.0f}'.format(v.valor) }}
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark rounded-pill px-3">{{ v.nombre_usuario }}</span>
+                            </td>
+                            <td class="text-muted pe-4" style="font-size:.85rem">{{ v.fecha[:16] if v.fecha else '-' }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <i class="bi bi-receipt display-6 d-block mb-2 opacity-25"></i>
+                                No hay ventas registradas.
+                                <div class="mt-3">
+                                    <a href="{{ url_for('ventas.registrar_venta') }}" class="btn btn-gold btn-sm rounded-3 fw-semibold">
+                                        <i class="bi bi-plus-circle-fill me-1"></i>Registrar primera venta
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Panel Principal – LácteosPlur{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+
+    <!-- Welcome Banner -->
+    <div class="welcome-banner rounded-4 p-4 p-lg-5 mb-4 text-white">
+        <span class="badge rounded-pill px-3 py-2 mb-3 d-inline-flex align-items-center gap-2"
+              style="background:rgba(200,151,58,.2);border:1px solid rgba(200,151,58,.4);color:var(--lp-gold-light);font-size:.78rem">
+            <i class="bi bi-shield-check"></i> {{ rol }}
+        </span>
+        <h2 class="fw-black mb-1" style="font-family:'Playfair Display',serif;font-size:2.2rem">
+            ¡Bienvenido, <span style="color:var(--lp-gold-light)">{{ nombre }}</span>!
+        </h2>
+        <p class="mb-0 text-white-50">Sistema de gestión LácteosPlur · Acceda a los módulos disponibles para su rol</p>
+    </div>
+
+    <!-- Módulos -->
+    <div class="row g-4 mb-4">
+
+        <!-- Gestión de Usuarios -->
+        <div class="col-12 col-md-4">
+            {% if rol == 'Administrador' %}
+            <a href="{{ url_for('users.list_users') }}" class="card border-0 rounded-4 shadow-sm h-100 p-4 menu-card mc-green text-decoration-none">
+            {% else %}
+            <div class="card border-0 rounded-4 shadow-sm h-100 p-4 menu-card mc-green" style="cursor:not-allowed;opacity:.65" onclick="alert('Usted No esta Autorizado')">
+            {% endif %}
+                <div class="menu-icon mb-3" style="background:linear-gradient(135deg,#d4edda,#a8d5b5)">
+                    <i class="bi bi-people-fill" style="color:var(--lp-green-mid)"></i>
+                </div>
+                <h5 class="fw-bold mb-1" style="font-family:'Playfair Display',serif;color:var(--lp-green-dark)">Gestión de Usuarios</h5>
+                <p class="text-muted mb-3" style="font-size:.85rem">Administre usuarios, roles y estados del sistema</p>
+                <div class="mt-auto">
+                    {% if rol == 'Administrador' %}
+                    <span style="color:var(--lp-green-mid)"><i class="bi bi-arrow-right-circle-fill fs-5"></i></span>
+                    {% else %}
+                    <span class="text-secondary"><i class="bi bi-lock-fill"></i> Solo Administrador</span>
+                    {% endif %}
+                </div>
+            {% if rol == 'Administrador' %}</a>{% else %}</div>{% endif %}
+        </div>
+
+        <!-- Ventas -->
+        <div class="col-12 col-md-4">
+            <a href="{{ url_for('ventas.list_ventas') }}" class="card border-0 rounded-4 shadow-sm h-100 p-4 menu-card mc-gold text-decoration-none">
+                <div class="menu-icon mb-3" style="background:linear-gradient(135deg,#fef3cd,#f8d97a)">
+                    <i class="bi bi-receipt-cutoff" style="color:var(--lp-gold)"></i>
+                </div>
+                <h5 class="fw-bold mb-1" style="font-family:'Playfair Display',serif;color:var(--lp-green-dark)">Ventas</h5>
+                <p class="text-muted mb-3" style="font-size:.85rem">Registre y consulte las ventas de productos lácteos</p>
+                <div class="mt-auto">
+                    <span style="color:var(--lp-gold)"><i class="bi bi-arrow-right-circle-fill fs-5"></i></span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Cerrar sesión -->
+        <div class="col-12 col-md-4">
+            <a href="{{ url_for('auth.logout') }}" class="card border-0 rounded-4 shadow-sm h-100 p-4 menu-card mc-red text-decoration-none">
+                <div class="menu-icon mb-3" style="background:linear-gradient(135deg,#fde8ec,#f5b8c4)">
+                    <i class="bi bi-box-arrow-right" style="color:#dc3545"></i>
+                </div>
+                <h5 class="fw-bold mb-1" style="font-family:'Playfair Display',serif;color:var(--lp-green-dark)">Cerrar Sesión</h5>
+                <p class="text-muted mb-3" style="font-size:.85rem">Salir del sistema de forma segura</p>
+                <div class="mt-auto">
+                    <span style="color:#dc3545"><i class="bi bi-arrow-right-circle-fill fs-5"></i></span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Nuestros productos -->
+    <div class="card border-0 rounded-4 shadow-sm p-4">
+        <h6 class="fw-bold mb-3" style="font-family:'Playfair Display',serif;color:var(--lp-green-dark)">
+            <i class="bi bi-box-seam me-2" style="color:var(--lp-gold)"></i>Nuestros Productos
+        </h6>
+        <!-- IMÁGENES: reemplaza cada emoji-div con <img src="/static/images/producto.jpg"> cuando tengas las fotos -->
+        <div class="d-flex flex-wrap gap-2">
+            {% set productos = [
+                ('🥛', 'Kefir Plur Botella 1000g'),
+                ('🍶', 'Yogo yogo Bolsa 900g'),
+                ('🥛', 'Yogurt Original Bolsa 900g'),
+                ('🌾', 'Avena Vaso 250g'),
+                ('🥤', 'Yox Botella 100g')
+            ] %}
+            {% for emoji, nombre_prod in productos %}
+            <span class="badge rounded-pill px-3 py-2 fw-normal d-flex align-items-center gap-2"
+                  style="background:var(--lp-cream);border:1px solid var(--lp-border);color:var(--lp-green-dark);font-size:.85rem">
+                {{ emoji }} {{ nombre_prod }}
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

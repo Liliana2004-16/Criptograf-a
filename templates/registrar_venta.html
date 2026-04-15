@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Registrar Venta – LácteosPlur{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-7">
+            <div class="card border-0 rounded-4 shadow overflow-hidden">
+
+                <!-- Cabecera -->
+                <div class="page-hero page-hero-gold p-4 text-white">
+                    <h4 class="fw-bold mb-1" style="font-family:'Playfair Display',serif">
+                        <i class="bi bi-plus-circle me-2"></i>Registrar Venta
+                    </h4>
+                    <p class="mb-0 text-white-50" style="font-size:.87rem">Complete el formulario para registrar una nueva venta</p>
+                </div>
+
+                <div class="card-body p-4 p-lg-5">
+                    <form method="POST" action="{{ url_for('ventas.registrar_venta') }}" novalidate>
+
+                        <div class="row g-3">
+
+                            <!-- Consecutivo (solo lectura) -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                                    <i class="bi bi-hash me-1"></i>Consecutivo
+                                </label>
+                                <div class="cons-display rounded-3">
+                                    #{{ '%04d' % consecutivo }}
+                                </div>
+                            </div>
+
+                            <!-- NIT/CC -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                                    <i class="bi bi-credit-card me-1"></i>NIT / CC del Cliente
+                                </label>
+                                <input type="text" name="nit_cc" class="form-control rounded-3"
+                                       placeholder="Solo números"
+                                       pattern="[0-9]+" inputmode="numeric"
+                                       title="Solo se permiten números" required>
+                            </div>
+
+                            <!-- Cliente -->
+                            <div class="col-12">
+                                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                                    <i class="bi bi-person me-1"></i>Nombre del Cliente
+                                </label>
+                                <input type="text" name="cliente" class="form-control rounded-3"
+                                       placeholder="Nombre completo del cliente" required>
+                            </div>
+
+                            <!-- Producto -->
+                            <div class="col-md-7">
+                                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                                    <i class="bi bi-box-seam me-1"></i>Producto
+                                </label>
+                                <select name="producto" class="form-select rounded-3" required>
+                                    <option value="" disabled selected>Seleccionar producto…</option>
+                                    {% for p in productos %}
+                                    <option value="{{ p }}">{{ p }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Valor -->
+                            <div class="col-md-5">
+                                <label class="form-label fw-semibold" style="font-size:.83rem;color:var(--lp-green-mid)">
+                                    <i class="bi bi-currency-dollar me-1"></i>Valor ($ COP)
+                                </label>
+                                <input type="number" name="valor" class="form-control rounded-3"
+                                       placeholder="0" min="0" step="1"
+                                       inputmode="numeric" required>
+                            </div>
+
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-gold btn-lg rounded-3 fw-bold">
+                                <i class="bi bi-save me-2"></i>Registrar Venta
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('ventas.list_ventas') }}" class="text-decoration-none fw-medium" style="color:var(--lp-green-mid);font-size:.88rem">
+                            <i class="bi bi-arrow-left-circle me-1"></i>Volver al listado de ventas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

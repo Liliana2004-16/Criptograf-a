@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Gestión de Usuarios – LácteosPlur{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+    <div class="card border-0 rounded-4 shadow overflow-hidden">
+
+        <!-- Cabecera -->
+        <div class="page-hero p-4 text-white">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <h4 class="fw-bold mb-1" style="font-family:'Playfair Display',serif">
+                        <i class="bi bi-people me-2"></i>Gestión de Usuarios
+                    </h4>
+                    <p class="mb-0 text-white-50" style="font-size:.87rem">Administre usuarios, roles y estados del sistema</p>
+                </div>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-gold btn-sm rounded-3 fw-semibold">
+                    <i class="bi bi-person-plus me-1"></i>Nuevo Usuario
+                </a>
+            </div>
+        </div>
+
+        <!-- Tabla -->
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Cédula</th>
+                            <th>Usuario</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if users %}
+                        {% for u in users %}
+                        <tr>
+                            <td class="text-muted fw-semibold ps-4">{{ loop.index }}</td>
+                            <td class="fw-semibold">{{ u.nombre }}</td>
+                            <td>{{ u.cedula }}</td>
+                            <td>
+                                <code class="bg-light rounded px-2 py-1" style="font-size:.88rem">@{{ u.usuario }}</code>
+                            </td>
+                            <td class="text-muted" style="font-size:.9rem">{{ u.correo }}</td>
+                            <td>
+                                {% if u.rol == 'Administrador' %}
+                                    <span class="badge badge-admin rounded-pill">{{ u.rol }}</span>
+                                {% else %}
+                                    <span class="badge badge-aux rounded-pill">{{ u.rol }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if u.estado == 'Activo' %}
+                                    <span class="badge badge-activo rounded-pill">● Activo</span>
+                                {% else %}
+                                    <span class="badge badge-inactivo rounded-pill">● Inactivo</span>
+                                {% endif %}
+                            </td>
+                            <td class="pe-4">
+                                <form method="POST" action="{{ url_for('users.update_estado') }}" class="d-flex align-items-center gap-2">
+                                    <input type="hidden" name="user_id" value="{{ u.id }}">
+                                    <select name="estado" class="form-select form-select-sm rounded-3" style="width:auto">
+                                        <option value="Activo"   {% if u.estado == 'Activo'   %}selected{% endif %}>Activo</option>
+                                        <option value="Inactivo" {% if u.estado == 'Inactivo' %}selected{% endif %}>Inactivo</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary btn-sm rounded-3 fw-semibold">
+                                        <i class="bi bi-check-lg"></i> Guardar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center py-5 text-muted">
+                                <i class="bi bi-people display-6 d-block mb-2 opacity-25"></i>
+                                No hay usuarios registrados.
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
